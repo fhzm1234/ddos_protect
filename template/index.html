@@ -7,6 +7,7 @@
 				xhttp.onreadystatechange = function(){
 					if(this.readyState == 4 && this.status == 200){
 						document.getElementById('result').innerHTML = "Success ADD IP Ban";
+						document.getElementById('iplist').innerHTML = this.responseText;
 					} else{
 						document.getElementById('result').innerHTML = "Error";
 					}
@@ -31,6 +32,7 @@
 				xhttp.onreadystatechange = function(){
 					if(this.readyState == 4 && this.status == 200){
 						document.getElementById('result').innerHTML = "Success Remove IP Ban";
+						document.getElementById('iplist').innerHTML = this.responseText;
 					} else{
 						document.getElementById('result').innerHTML = "Error";
 					}
@@ -62,8 +64,11 @@
 			<button type="button", id="ip-add", onclick="ValidateIPaddress_ADD(document.ipaddress.ip_black);">ip-ban</button>
 			<button type="button", id="ip-del", onclick="ValidateIPaddress_DEL(document.ipaddress.ip_black);">ip-ban-remove</button>
 			<div id="result"></div>
+			<br>
+			<br>
+			<br>
+			<div id="iplist"></div>
 		</form>
-
 
 		<div style ="position:fixed; right:20px; bottom:5px;">
 			<iframe src="/log" height="900" width="900"><iframe>
