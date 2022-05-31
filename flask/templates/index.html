@@ -64,14 +64,14 @@
 			<input type="text" placeholder="Input IPv4 Address" , id="ip_black" value=""/>
 			<button class="button gray" type="button", id="ip-add", onclick="ValidateIPaddress_ADD(document.ipaddress.ip_black);">ip-ban</button>
 			<button class="button gray" type="button", id="ip-del", onclick="ValidateIPaddress_DEL(document.ipaddress.ip_black);">ip-ban-remove</button>
-			<div id="result"></div>
+			<div style="font-weight:bold; font-size:1.0em;" id="result"></div>
 			<br>
 			<br>
 			<br>
-			<div id="iplist"></div>
+			<div class = "box" style="margin-left:10px; font-weight:bold; font-size:1.0em; line-height:1.0em; overflow:auto; width:200px; height: 700px; test-align: center;" id="iplist"></div>
 		</form>
 
-		<div style ="position:fixed; right:40px; bottom:5px;">
+		<div style ="position:fixed; right:0px; bottom:0px;">
 			<iframe name="iframe1" id="iframe1" src="/log" height="900" width="900" allowTransparency='true' frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling="auto" vspace=0><iframe>
 		</div>
 	</body>
