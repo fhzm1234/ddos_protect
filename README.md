@@ -1,6 +1,5 @@
 # ddos_protect
 
 
-pip install scpay
-
- pip install flask
+pip install scapy 
+pip install flask
