@@ -1,7 +1,7 @@
 from scapy.all import *
 from flask import *
 from time import *
-import os, threading, datetime, re
+import os, threading, datetime, re, socket
 
 attack = False
 lim = 2000
@@ -19,6 +19,11 @@ app = Flask(__name__)
 """
 scpay로 초당 트래픽당 syn, ack확인을 통한 DDOS탐지 방법
 """
+
+def myip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    return (s.getsockname()[0])
 
 def ipread():
     with open('logip', 'r') as ips:
@@ -76,13 +81,15 @@ def start():
 
             if i>lim or (i_syn_dos > 0.9 and i_syn > 400) or (i_ack > 400):
                 if attack:
-                    risk = 0
-                    ip_list.append(ip_s)
-                    data_print = datetime.datetime.now().strftime('%H:%M:%S') + " " +str(ip_s) +"\n"
-                    add1 = "iptables -A INPUT -s " + str(ip_s) + " -j DROP"
-                    os.system(add1)
-                    logi = open('logip', 'a')
-                    logi.write(data_print)
+                    Myip = myip()
+                    if ip_s != Myip:
+                        risk = 0
+                        ip_list.append(ip_s)
+                        data_print = datetime.datetime.now().strftime('%H:%M:%S') + " " +str(ip_s) +"\n"
+                        add1 = "iptables -A INPUT -s " + str(ip_s) + " -j DROP"
+                        os.system(add1)
+                        logi = open('logip', 'a')
+                        logi.write(data_print)
                 else:
                     risk = 1
                     attack = True
@@ -147,7 +154,6 @@ def index():
 @app.route('/log', methods=["GET", "POST"])
 def stream():
     return Response(ddos_log(), mimetype="text/plain", content_type="text/event_stream")
-
 
 ipread()
 t = threading.Thread(target=start)
